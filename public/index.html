@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="css/starduel.css">
+  </head>
+  <body>
+    <h1>Hello there!</h1>
+    <div id="content"></div>
+
+    <script src="/node_modules/phaser-ce/build/phaser.js"></script>
+    <script src="/node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script src="/node_modules/requirejs/require.js"></script>
+    <script src="script/client.js"></script>
+    <script>
+     require(["client/index"]);
+    </script>
+  </body>
+</html>
