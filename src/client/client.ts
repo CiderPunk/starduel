@@ -1,14 +1,17 @@
-import * as phaser from "phaser-ce" 
 import { Common } from "../common/common"
+import * as PIXI from "pixi.js"
 
 export class Client{
-  game: Phaser.Game
-  logo: Phaser.Sprite;
-
+  stage:PIXI.Container
+  renderer:PIXI.CanvasRenderer | PIXI.WebGLRenderer
+  
   constructor(){
-    this.game = new Phaser.Game(800,600, Phaser.WEBGL, "content", { preload: this.preload, create: this.create, update: this.update })
+    this.stage = new PIXI.Container()
+    this.renderer = PIXI.autoDetectRenderer(800,600)
+    document.getElementById("content").appendChild(this.renderer.view)
+    this.renderer.render(this.stage)
   }
-
+/*
   preload():void{
     this.game.load.image("logo", "/assets/gfx/ships/1.png")
   }
@@ -20,4 +23,5 @@ export class Client{
     
 
   }
+  */
 }

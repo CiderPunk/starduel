@@ -8,12 +8,31 @@
     <h1>Hello there!</h1>
     <div id="content"></div>
 
-    <script src="/node_modules/phaser-ce/build/phaser.js"></script>
+    <script src="/node_modules/systemjs/dist/system.js"></script>
+    <script src="./script/client.js"></script>
+    <script>
+      SystemJS.defaultJSExtensions = true;
+      SystemJS.config({ 
+        //baseURL: "/node_modules",
+        map:{"pixi.js" : "/node_modules/pixi.js/dist/pixi.js" }
+      });
+      SystemJS.import("client/index");
+      //.then(function(m){       m.start();      });
+    </script>
+
+<!--
+    <script src="/node_modules/pixi.js/dist/pixi.min.js"></script>
     <script src="/node_modules/socket.io-client/dist/socket.io.js"></script>
     <script src="/node_modules/requirejs/require.js"></script>
     <script src="script/client.js"></script>
     <script>
+      require.config({
+        paths: {
+          "pixi.js": "./node_modules/pixi.js/dist/"
+        }
+      });
      require(["client/index"]);
     </script>
+    -->
   </body>
 </html>

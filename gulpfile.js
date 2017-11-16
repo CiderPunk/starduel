@@ -30,7 +30,7 @@ gulp.task('buildServer', function(){
  
                                            
 var tsClientProject  = ts.createProject({
-  module: "amd",
+  module: "system",
   noImplicitAny:true,
   outFile:'client.js',
   target:"es5", 
