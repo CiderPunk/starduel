@@ -26,6 +26,7 @@ export class Client implements IClient{
   }
 
   protected update(time:number){
+    window.requestAnimationFrame(this.update);
     let delta = time - this.lastFrameTime
     this.lastFrameTime  = time
     if (delta > 500){
@@ -38,6 +39,6 @@ export class Client implements IClient{
       this.tickTime += this.targetTickTime;
       this.tickCount++;
     }
-    window.requestAnimationFrame(this.update);
+
   }
 }
