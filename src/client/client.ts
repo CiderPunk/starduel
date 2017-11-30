@@ -1,16 +1,14 @@
 import * as PIXI from "pixi.js"
 import { Common } from "../common/common"
-import { IGame, IClient, IResMan } from "./interfaces";
+import { IGame, IClient,  ILoader } from "./interfaces";
 import { DuelGame } from "./game/duelgame";
-import { ResMan } from "./resman";
 
 export class Client implements IClient{
 
-  public readonly stage:PIXI.Container
   public readonly renderer:PIXI.CanvasRenderer | PIXI.WebGLRenderer
   public readonly loader:PIXI.loaders.Loader
-  public readonly resman:IResMan
-  game:IGame
+   game:IGame
+  protected postLoad = new Array<(loader:PIXI.loaders.Loader)=>void>();
 
   public tickTime:number = 0
   public lastFrameTime:number = 0
@@ -18,21 +16,31 @@ export class Client implements IClient{
   public tickCount = 0
 
   public constructor(){
-    this.resman = new ResMan()
-    this.stage = new PIXI.Container()
+
     this.renderer = PIXI.autoDetectRenderer(800,600)
     document.getElementById("content").appendChild(this.renderer.view)
-    this.renderer.render(this.stage)
+
     this.loader = new PIXI.loaders.Loader()
+
     this.game = new DuelGame(this)
-    window.requestAnimationFrame(this.update);
+
+    this.loader.load((loader:PIXI.loaders.Loader)=>{
+      this.postLoad.forEach(postloader => {
+        postloader(loader)
+      })
+    })
+    window.requestAnimationFrame((t:number)=>{ this.update(t) })
+    this.game.ready()
   }
 
-  protected update(time:number){
-    window.requestAnimationFrame(this.update);
+  public load(loader:ILoader):void{
+    loader.preload(this.loader);
+    this.postLoad.push(loader.postload);
+  }
 
+  protected update(time:number):void{
+    window.requestAnimationFrame((t:number)=>{ this.update(t) })
     if(this.loader.loading) return
-
     let delta = time - this.lastFrameTime
     this.lastFrameTime  = time
     if (delta > 500){

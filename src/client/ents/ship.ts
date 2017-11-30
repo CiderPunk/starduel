@@ -1,14 +1,37 @@
 import { PhysicsObj } from "./physicsobj";
-import { IResMan } from "../interfaces";
-export class Ship extends PhysicsObj{
+import {  ILoader, IGame } from "../interfaces";
+export abstract class Ship extends PhysicsObj{
 
-  static tex:PIXI.Texture
-
-  public static load(loader:IResMan){
-    loader.AddResources(["/assets/gfx/ships/10.png"], (res:PIXI.loaders.Resource)=>{
-      this.tex = res["/assets/gfx/ships/10.png"].Texture
-    });
+  protected static tex:PIXI.Texture
+  protected readonly sprite:PIXI.Sprite
+ 
+  public static loader():ILoader {
+    return{
+      preload: (loader)=>{
+        loader.add("ship10","/assets/gfx/ships/10.png")
+      },
+      postload: (loader)=>{
+        this.tex = loader.resources["ship10"].texture
+      }
+    }
   }
+
+  public constructor(owner:IGame){
+    super(owner)
+    this.sprite = new PIXI.Sprite(Ship.tex)
+    
+    this.owner.stage.addChild(this.sprite)
+    this.sprite.x = 200
+    this.sprite.y = 200
+
+  }
+
+  public draw():void{
+
+
+
+  }
+
 
   
 

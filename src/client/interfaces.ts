@@ -2,22 +2,21 @@
 
 
 export interface IGame{
+  stage:PIXI.Container
   draw():void
   update(dt:number):void
+  ready():void
 }
 
 export interface IClient{
-  resman:IResMan;
-  stage:PIXI.Container
+
   renderer:PIXI.CanvasRenderer | PIXI.WebGLRenderer
-  //loader:PIXI.loaders.Loader
+  load(loader:ILoader):void
 }
 
+export type LoadCallback = (loader:PIXI.loaders.Loader)=>void
 
-export type LoadCallback = (res:PIXI.loaders.Resource)=>void
-
-export interface IResMan{
-  isLoading:boolean
-  AddResources(files:string[], callback:LoadCallback):void
-  Load(cb:LoadCallback):void
+export interface ILoader{
+  preload:(loader:PIXI.loaders.Loader)=>void;
+  postload:(loader:PIXI.loaders.Loader)=>void;
 }

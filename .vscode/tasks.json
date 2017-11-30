@@ -6,7 +6,15 @@
     {
       "type": "gulp",
       "task": "watch",
-      "problemMatcher": []
+      "problemMatcher":[ "$tsc-watch"      ]
+    
+    },
+    {
+      "type": "gulp",
+      "task": "buildClient",
+      "problemMatcher": [
+        "$gulp-tsc"
+      ]
     }
   ]
 }
