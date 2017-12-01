@@ -16,21 +16,18 @@ export class Client implements IClient{
   public tickCount = 0
 
   public constructor(){
-
-    this.renderer = PIXI.autoDetectRenderer(800,600)
+    this.renderer = PIXI.autoDetectRenderer(1024,768)
     document.getElementById("content").appendChild(this.renderer.view)
-
     this.loader = new PIXI.loaders.Loader()
-
     this.game = new DuelGame(this)
-
     this.loader.load((loader:PIXI.loaders.Loader)=>{
       this.postLoad.forEach(postloader => {
         postloader(loader)
       })
+      this.game.ready()
     })
     window.requestAnimationFrame((t:number)=>{ this.update(t) })
-    this.game.ready()
+  
   }
 
   public load(loader:ILoader):void{
@@ -49,12 +46,12 @@ export class Client implements IClient{
       console.log("frames missed: " + delta) 
     }
 
-    this.game.draw();
+    this.game.draw()
 
     while(this.tickTime < time){
-      this.game.update(this.targetTickTime);   
-      this.tickTime += this.targetTickTime;
-      this.tickCount++;
+      this.game.update(this.targetTickTime)   
+      this.tickTime += this.targetTickTime
+      this.tickCount++
     }
 
   }

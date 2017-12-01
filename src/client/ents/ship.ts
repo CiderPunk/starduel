@@ -4,6 +4,7 @@ export abstract class Ship extends PhysicsObj{
 
   protected static tex:PIXI.Texture
   protected readonly sprite:PIXI.Sprite
+  public dir:number
  
   public static loader():ILoader {
     return{
@@ -16,24 +17,23 @@ export abstract class Ship extends PhysicsObj{
     }
   }
 
-  public constructor(owner:IGame){
+  public constructor(owner:IGame,x:number = 0, y:number = 0){
     super(owner)
     this.sprite = new PIXI.Sprite(Ship.tex)
-    
-    this.owner.stage.addChild(this.sprite)
+    this.sprite.scale.x = 0.5
+    this.sprite.scale.y = 0.5
+    this.sprite.anchor.set(0.5,0.5)
     this.sprite.x = 200
     this.sprite.y = 200
-
+    this.owner.stage.addChild(this.sprite)
+    this.pos.set(x,y)
+    this.dir = 0
   }
 
-  public draw():void{
-
-
-
-  }
-
-
-  
+  public update(dt:number){
+    super.update(dt)
+    this.sprite.position.set(this.pos.x, this.pos.y)
+  } 
 
 
 

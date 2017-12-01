@@ -7,10 +7,11 @@ export class DuelGame extends Game implements IGame{
   
   
   player:Player
-  
+  star:Star  
 
   public ready(): void {
-    this.player = new Player(this)
+    this.player = new Player(this, 200,200)
+    this.star  = new Star(this, 100, 1)
 
   }
 
@@ -23,7 +24,9 @@ export class DuelGame extends Game implements IGame{
   }
 
   public update(dt: number): void {
-   // throw new Error("Method not implemented.");
+    this.player.update(dt)
+    this.star.update(dt)
+
   }
 
 

@@ -3,14 +3,8 @@ import { IGame, IClient } from "../interfaces";
 export abstract class Game implements IGame{
   public readonly stage:PIXI.Container
 
-
-
-  
-
-
   public constructor (protected owner:IClient){ 
     this.stage = new PIXI.Container()
-
   }
   /**
    * draws the game screen
