@@ -1,14 +1,11 @@
-export interface ICommandSubscriber{
-  commandStart(command:Command)
-  commandStop(command:Command)
-}
+
+export type CommandAction  = (active:boolean,name:string)=>void;
 
 export class Command{
   public constructor(private name:string, private action:string, private defaultKeyCode:number){  }
 
+  private actions = new Array<CommandAction>();
   private active:boolean = false
-
-  private subscribers:ICommandSubscriber[] = [];
   //default key code of command
   get DefaultKeyCode():number{
     return this.defaultKeyCode
@@ -26,29 +23,29 @@ export class Command{
     return this.active
   }
 
-  public Subscribe(ent:ICommandSubscriber){
-    if (this.subscribers.indexOf(ent) == -1){
-      this.subscribers.push(ent)
+  public Subscribe(act:CommandAction){
+    if (this.actions.indexOf(act) == -1){
+      this.actions.push(act)
     }
   }
 
-  public Unsubscribe(ent:ICommandSubscriber){
-    let index = this.subscribers.indexOf(ent)
+  public Unsubscribe(act:CommandAction){
+    let index = this.actions.indexOf(act)
     if (index > -1){
-      this.subscribers.splice(index, 1)
+      this.actions.splice(index, 1)
     }
   }
 
   public Start(){
     if (!this.active){
-      this.subscribers.map((sub)=>sub.commandStart(this))
+      this.actions.map((act)=>act(true, this.action))
       this.active = true
     }
   }
 
   public Stop(){
     this.active = false
-    this.subscribers.map((sub)=>sub.commandStop(this))
+    this.actions.map((act)=>act(false, this.action))
   }
 }
 
@@ -62,10 +59,10 @@ export namespace ControlMan{
     [keyCode: number]: Command;
   }
 
-  let keyMap : KeyMap = {};
+  let keyMap:KeyMap = {};
   let commandMap:CommandMap = {};
 
-  export function Init(){
+  export function init(){
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
   }
@@ -86,7 +83,7 @@ export namespace ControlMan{
     }
   }
 
-  export function Bind(keyCode:number, commandName:string){
+  export function bind(keyCode:number, commandName:string){
     let command = commandMap[commandName];
     if (command !== undefined){
       keyMap[keyCode] = command
@@ -94,26 +91,25 @@ export namespace ControlMan{
   }
 
 
-  export function RegisterCommands(commands: Command[]){
+  export function registerCommands(commands: Command[]){
     for (let command of commands){
-      RegisterCommand(command)
+      registerCommand(command)
     }
   }
 
-  export function RegisterCommand(command: Command){
+  export function registerCommand(command: Command){
     if (commandMap[command.Name] === undefined){
       commandMap[command.Name] = command
       //attempt to fecth binding from config..
       
       //fail - use defauilt
-      Bind(command.DefaultKeyCode, command.Name);
-
+      bind(command.DefaultKeyCode, command.Name);
     }
     else{
       throw new Error("Duplicate command registered: " + command.Name);
     }
   }
-  export function UnregisterCommand(command: Command){
+  export function unregisterCommand(command: Command){
     delete commandMap[command.Name];
   }
 

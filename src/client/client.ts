@@ -1,7 +1,8 @@
 import * as PIXI from "pixi.js"
 import { Common } from "../common/common"
-import { IGame, IClient,  ILoader } from "./interfaces";
-import { DuelGame } from "./game/duelgame";
+import { IGame, IClient,  ILoader } from "./interfaces"
+import { DuelGame } from "./game/duelgame"
+import { ControlMan } from "./controlman"
 
 export class Client implements IClient{
 
@@ -16,6 +17,7 @@ export class Client implements IClient{
   public tickCount = 0
 
   public constructor(){
+    ControlMan.init();
     this.renderer = PIXI.autoDetectRenderer(1024,768)
     document.getElementById("content").appendChild(this.renderer.view)
     this.loader = new PIXI.loaders.Loader()
@@ -49,7 +51,7 @@ export class Client implements IClient{
     this.game.draw()
 
     while(this.tickTime < time){
-      this.game.update(this.targetTickTime)   
+      this.game.update(this.targetTickTime / 1000)   
       this.tickTime += this.targetTickTime
       this.tickCount++
     }

@@ -1,6 +1,11 @@
 export class V2{
   private static temp = new V2(0,0)
+  public static readonly zero = new V2(0,0)
 
+  public reset(){
+    this.x = 0
+    this.y = 0
+  }
   public constructor(public x:number, public y:number){}
   public add(other:V2):V2{
     this.x += other.x
@@ -9,8 +14,8 @@ export class V2{
   }
 
   public addScale(other:V2, scale:number):V2{
-    this.x += other.x
-    this.y += other.y
+    this.x += other.x * scale
+    this.y += other.y * scale
     return this
   }
 
@@ -54,6 +59,13 @@ export class V2{
     this.y = temp
     return this
   }
+
+  public setV2(val:V2):V2{
+    this.x = val.x
+    this.y = val.y
+    return this
+  }
+
   public set(x:number, y:number):V2{
     this.x = x
     this.y = y
@@ -62,7 +74,7 @@ export class V2{
 
   public setAngle(rads:number, mag:number){
     this.x = mag * Math.sin(rads) 
-    this.y = mag * Math.cos(rads)
+    this.y = -mag * Math.cos(rads)
     return this
   }
 
@@ -80,5 +92,14 @@ export class V2{
     V2.temp.scale(2 * dp)
     this.sub(V2.temp)
     return this
+  }
+
+  public max(val:V2){
+    this.x = Math.max(this.x, val.x)
+    this.y = Math.max(this.y, val.y)
+  }
+  public min(val:V2){
+    this.x = Math.min(this.x, val.x)
+    this.y = Math.min(this.y, val.y)
   }
 }
