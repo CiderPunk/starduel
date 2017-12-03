@@ -48,8 +48,8 @@ export class Bounds{
       this._hasPoint = true
     }
     else{
-      this.max.max(point)
-      this.min.min(point)
+      this._max.max(point)
+      this._min.min(point)
     }
   }
 
@@ -60,8 +60,8 @@ export class Bounds{
 
   public reset(){ 
     this._hasPoint = false;
-    this.min.reset()
-    this.max.reset()
+    this._min.reset()
+    this._max.reset()
   }
 }
 
