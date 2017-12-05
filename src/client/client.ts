@@ -18,7 +18,10 @@ export class Client implements IClient{
 
   public constructor(){
     ControlMan.init();
-    this.renderer = PIXI.autoDetectRenderer(1024,768)
+    this.renderer = PIXI.autoDetectRenderer(window.innerWidth,window.innerHeight)
+
+window.addEventListener("resize", ()=>{ this.renderer.resize(window.innerWidth,window.innerHeight)})
+
     document.getElementById("content").appendChild(this.renderer.view)
     this.loader = new PIXI.loaders.Loader()
     this.game = new DuelGame(this)

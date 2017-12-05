@@ -1,3 +1,3 @@
 export namespace Constants{
-  export const GravityConstant = 0.5
+  export const GravityConstant =1
 }
