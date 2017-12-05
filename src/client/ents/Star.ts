@@ -18,9 +18,9 @@ export class Star extends PhysicsObj{
   }
 
 
-  public constructor(owner:IDuelGame, private radius:number, mass:number, start:V2, velocity:V2){
+  public constructor(owner:IDuelGame, radius:number, mass:number, start:V2, velocity:V2){
     //super(owner, density * 4/3 * (Math.PI * (radius ^ 3)))
-    super(owner, mass)
+    super(owner, mass, radius)
     this.shape = new PIXI.Graphics()
     this.shape.beginFill(0xfffffff)
     this.shape.drawCircle(0,0,radius)

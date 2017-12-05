@@ -3,15 +3,20 @@ import { V2 } from "../math/v2";
 import { Constants } from "../constants"
 
 export abstract class PhysicsObj implements IPhysicsEntity{
+
+  public readonly radius:number
+  public readonly radius2:number
   public readonly mass: number
   protected readonly  owner:IDuelGame
   public readonly pos = new V2(0,0)
   public readonly vel = new V2(0,0)
   protected readonly force = new V2(0,0)
 
-  public constructor (owner:IDuelGame, mass:number){
+  public constructor (owner:IDuelGame, mass:number, rad:number){
     this.owner = owner
     this.mass = mass
+    this.radius = rad
+    this.radius2 = rad * rad
   }
 
   public update(dt:number){

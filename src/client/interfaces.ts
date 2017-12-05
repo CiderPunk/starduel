@@ -16,7 +16,6 @@ export interface IDuelGame extends IGame{
 }
 
 export interface IClient{
-
   renderer:PIXI.CanvasRenderer | PIXI.WebGLRenderer
   load(loader:ILoader):void
 }
@@ -36,6 +35,8 @@ export interface IEntity{
 
 export interface IPhysicsEntity extends IEntity{
   mass:number
+  radius:number
+  radius2:number
 }
 
 export interface IShip extends IPhysicsEntity{
@@ -44,4 +45,10 @@ export interface IShip extends IPhysicsEntity{
 
 export interface IWeapon{
   update(dt:number, owner:IShip, firing:boolean):void
+}
+
+export interface IUniverse{
+  testBounds(ent:IPhysicsEntity)
+
+
 }
