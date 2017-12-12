@@ -14,7 +14,7 @@ export abstract class CircleUniverse implements IUniverse{
     this.radius2 = this.radius * this.radius
   }
 
-  public abstract testBounds(ent:IPhysicsEntity);
+  public abstract testBounds(ent:IPhysicsEntity):void
 
 }
 

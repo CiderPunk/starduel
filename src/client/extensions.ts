@@ -1,5 +1,6 @@
 import { ObservablePoint, Point } from "pixi.js"
-import { V2 } from "./math/v2";
+import { V2 } from "./math/v2"
+
 
 declare module "pixi.js"{
   interface ObservablePoint{

@@ -48,7 +48,5 @@ export interface IWeapon{
 }
 
 export interface IUniverse{
-  testBounds(ent:IPhysicsEntity)
-
-
+  testBounds(ent:IPhysicsEntity):void
 }
