@@ -13,6 +13,9 @@ export interface IGame{
 export interface IDuelGame extends IGame{
   largeBodies:Array<IPhysicsEntity>
   ships:Array<IShip>
+  foreground:PIXI.Container
+  background:PIXI.Container
+  decoration:PIXI.Container
 }
 
 export interface IClient{
@@ -49,4 +52,11 @@ export interface IWeapon{
 
 export interface IUniverse{
   testBounds(ent:IPhysicsEntity):void
+}
+
+
+export interface ISpritePosition{
+  x:number
+  y:number
+  rot:number
 }

@@ -17,6 +17,9 @@ export class DuelGame extends Game implements IDuelGame{
   public readonly universe:IUniverse
   private bounds = new Bounds();
 
+  public readonly foreground:PIXI.Container
+  public readonly background:PIXI.Container
+  public readonly decoration:PIXI.Container
 
   public ready(): void {
     //setup play area
@@ -42,6 +45,13 @@ export class DuelGame extends Game implements IDuelGame{
     owner.load(Star.loader())
 
     this.universe = new BounceUniverse(this, 600)
+
+    this.decoration = new PIXI.Container()
+    this.foreground = new PIXI.Container()
+    this.background = new PIXI.Container()
+    this.stage.addChild(this.background)
+    this.stage.addChild(this.foreground)
+    this.stage.addChild(this.decoration)
 
   }
 
