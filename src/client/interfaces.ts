@@ -32,6 +32,7 @@ export interface ILoader{
 
 export interface IEntity{
   update(dt:number):void
+  prepDraw():void
   pos:V2
   vel:V2
 }

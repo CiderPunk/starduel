@@ -23,9 +23,9 @@ export abstract class PhysicsObj implements IPhysicsEntity{
     this.vel.addScale(this.force, (1/this.mass) * dt)
     this.force.reset() // reset forces
     this.pos.addScale(this.vel, dt)
-    
   }
 
+  public abstract prepDraw():void
 
   static readonly dist:V2 = new V2(0,0);
 

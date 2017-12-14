@@ -1,5 +1,5 @@
 import { Ship, ShipConstants } from "./ship"
-import { IGame, IDuelGame, IWeapon } from "../interfaces"
+import { IGame, IDuelGame, IWeapon, ILoader } from "../interfaces"
 import { Command, ControlMan} from "../controlman"
 import { Utils } from "../math/utils";
 import { V2 } from "../math/v2";
@@ -16,14 +16,29 @@ namespace PlayerControls{
 
 export class Player extends Ship{
   
+  static tex:PIXI.Texture
+ 
+  public static loader():ILoader {
+    return{
+      preload: (loader)=>{
+        loader.add("ship1","/assets/gfx/ships/1.png")
+      },
+      postload: (loader)=>{
+        this.tex = loader.resources["ship1"].texture
+      }
+    }
+  }
+
+
+
   protected turn:number  = 0
   protected thrust:number = 0
   protected shoot = false
   protected timeToShoot = 0
 
 
-  public constructor(owner:IDuelGame,x:number, y:number){
-    super(owner,x,y)
+  public constructor(owner:IDuelGame,x:number, y:number, vel:V2){
+    super(owner,x,y,0, vel, Player.tex)
     //setup controls
     PlayerControls.PlayerThrust.Subscribe((active, name) =>{ this.thrust = active ? 1 : 0 })
     PlayerControls.PlayerLeft.Subscribe((active, name) =>{ 

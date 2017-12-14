@@ -11,12 +11,7 @@ export abstract class Game implements IGame{
    * draws the game screen
    */
   public draw():void{
-    
-    //this.owner.renderer.render(this.stage,null,true)
     this.owner.renderer.render(this.stage)
-
-
-
   }
   /**
    * a game tick

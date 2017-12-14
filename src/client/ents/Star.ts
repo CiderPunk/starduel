@@ -3,6 +3,7 @@ import { ILoader, IGame, IDuelGame } from "../interfaces";import { V2 } from "..
 
 
 export class Star extends PhysicsObj{
+
   
   shape:PIXI.Graphics
 
@@ -34,6 +35,11 @@ export class Star extends PhysicsObj{
   public update(dt:number){
     this.calculateGravity()
     super.update(dt)
+
+  }
+
+  public prepDraw(): void {
     this.shape.position.set(this.pos.x, this.pos.y)
   }
+
 }
