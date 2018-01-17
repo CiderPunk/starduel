@@ -21,7 +21,7 @@ export class Player extends Ship{
   public static loader():ILoader {
     return{
       preload: (loader)=>{
-        loader.add("ship1","/assets/gfx/ships/1.png")
+        loader.add("ship1","/assets/gfx/ships/4.png")
       },
       postload: (loader)=>{
         this.tex = loader.resources["ship1"].texture

@@ -34,7 +34,7 @@ export abstract class Ship extends PhysicsObj implements IShip{
     this.dir = dir
     //trail
     this.trail = new Array<PIXI.Sprite>()
-    let alpha = 0.5
+    let alpha = 0.3
     for(let i = 0; i < ShipConstants.TrailLength; i++){
       let trailItem = new PIXI.Sprite(tex)
       trailItem.anchor.set(0.5,0.5)
@@ -53,11 +53,12 @@ export abstract class Ship extends PhysicsObj implements IShip{
     this.sprite.scale.y = this.sprite.scale.x = ShipConstants.Scale
     this.owner.foreground.addChild(this.sprite)
     //debug shape
+    /*
     this.debugShape = new PIXI.Graphics()
     this.debugShape.lineStyle(1, 0xfffffff, 0.4)
     this.debugShape.drawCircle(0,0,this.radius)
     this.owner.decoration.addChild(this.debugShape)
-
+*/
   }
 
   public prepDraw(): void {
@@ -75,7 +76,7 @@ export abstract class Ship extends PhysicsObj implements IShip{
 
     this.sprite.rotation = this.dir
     this.sprite.position.setV2(this.pos)
-    this.debugShape.position.setV2(this.pos)
+    //this.debugShape.position.setV2(this.pos)
 
   }
   

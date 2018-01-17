@@ -4,6 +4,9 @@ import { Constants } from "../constants"
 
 export abstract class PhysicsObj implements IPhysicsEntity{
 
+
+
+  public static readonly attractionThreshold = 0.0001
   public readonly radius:number
   public readonly radius2:number
   public readonly mass: number
@@ -11,6 +14,10 @@ export abstract class PhysicsObj implements IPhysicsEntity{
   public readonly pos = new V2(0,0)
   public readonly vel = new V2(0,0)
   protected readonly force = new V2(0,0)
+
+
+  public static skipCount = 0
+  public static total = 0
 
   public constructor (owner:IDuelGame, mass:number, rad:number){
     this.owner = owner
@@ -35,9 +42,14 @@ export abstract class PhysicsObj implements IPhysicsEntity{
         PhysicsObj.dist.setV2(this.pos).sub(other.pos)
         let len2 = PhysicsObj.dist.len2()
         let attraction = Constants.GravityConstant *( (this.mass * other.mass) / len2)
-        //if (attraction > 0.00001){
+
+        PhysicsObj.total++
+        if (attraction > PhysicsObj.attractionThreshold){
           this.force.addScale(PhysicsObj.dist.norm(), -attraction)
-        //}
+        }
+        else{
+          PhysicsObj.skipCount++
+        }
       }
     })
   }

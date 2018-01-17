@@ -9,7 +9,7 @@ export class Drone extends Ship{
   public static loader():ILoader {
     return{
       preload: (loader)=>{
-        loader.add("ship10","/assets/gfx/ships/10b.png")
+        loader.add("ship10","/assets/gfx/ships/1b.png")
       },
       postload: (loader)=>{
         this.tex = loader.resources["ship10"].texture
